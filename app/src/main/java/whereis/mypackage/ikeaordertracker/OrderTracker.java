@@ -20,6 +20,8 @@ public class OrderTracker extends AppCompatActivity {
 
     private AppLovinAd loadedAd;
     private AppLovinInterstitialAdDialog interstitialAd;
+    final String log = "IKEA DEBUG";
+
 
 
     @Override
@@ -30,14 +32,7 @@ public class OrderTracker extends AppCompatActivity {
         AppLovinSdk.initializeSdk(getApplicationContext());
         interstitialAd = AppLovinInterstitialAd.create( AppLovinSdk.getInstance( this ), this );
 
-        Log.d("TEST" , "SDK initialized");
-
-
-        // Optional: Assign listeners
-//        interstitialAd.setAdDisplayListener();
-//        interstitialAd.setAdClickListener( );
-//        interstitialAd.setAdVideoPlaybackListener( ... );
-
+        Log.d(log , "SDK initialized");
 
         // Load an Interstitial Ad
         AppLovinSdk.getInstance(getApplicationContext()).getAdService().loadNextAd( AppLovinAdSize.INTERSTITIAL, new AppLovinAdLoadListener()
@@ -47,18 +42,81 @@ public class OrderTracker extends AppCompatActivity {
             {
                 loadedAd = ad;
                 interstitialAd.showAndRender( loadedAd );
-                Log.d("TEST" , "Ad loaded and rendering");
+                Log.d(log , "Ad loaded and rendering");
             }
 
             @Override
             public void failedToReceiveAd(int errorCode)
             {
-                Log.d("TEST" , "Ad failed to load with: " + errorCode);
+                Log.d(log , "Ad failed to load with: " + errorCode);
                 // Look at AppLovinErrorCodes.java for list of error codes.
             }
 
 
         } );
 
+        // Initialize all other listeners
+        initializeListeners();
     }
+
+
+
+    // This function will call all listeners that will be required to allow our application to run
+    public void initializeListeners() {
+
+
+        //region Interstitial Callback Functions
+
+
+        // setAdDisplayListener
+        interstitialAd.setAdDisplayListener( new AppLovinAdDisplayListener()
+        {
+            @Override
+            public void adDisplayed(AppLovinAd appLovinAd)
+            {
+                Log.d(log, "Interstitial Displayed" );
+                // Do something here
+            }
+
+            @Override
+            public void adHidden(AppLovinAd appLovinAd)
+            {
+                Log.d( log, "Interstitial Hidden" );
+                // Do something here maybe
+            }
+        } );
+
+
+        // setAdClickListener
+        interstitialAd.setAdClickListener( new AppLovinAdClickListener()
+        {
+            @Override
+            public void adClicked(AppLovinAd appLovinAd)
+            {
+                Log.d(log, "Interstitial Clicked" );
+                // Do something here
+            }
+        } );
+
+
+        // setAdVideoPlaybackListener
+        interstitialAd.setAdVideoPlaybackListener( new AppLovinAdVideoPlaybackListener()
+        {
+            @Override
+            public void videoPlaybackBegan(AppLovinAd appLovinAd)
+            {
+                Log.d( log,"Video Started" );
+            }
+
+            @Override
+            public void videoPlaybackEnded(AppLovinAd appLovinAd, double percentViewed, boolean wasFullyViewed)
+            {
+                Log.d(log,"Video Ended" );
+            }
+        } );
+
+        //endregion
+
+    }
+
 }
