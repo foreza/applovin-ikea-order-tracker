@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".OrderTracker">
+
+<!-- To automatically load an ad, add the next the next two lines into the <com.applovin.adview.AppLovinAdView> element -->
+<!--xmlns:demo="http://schemas.applovin.com/android/1.0"-->
+<!--demo:loadAdOnCreate="true"-->
+
+<com.applovin.adview.AppLovinAdView
+    android:id="@+id/ad_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".OrderTracker">
+    android:layout_height="50dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true" />
 
-    <TextView
+    <Button
+        android:id="@+id/load_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:background="@android:color/transparent"
+        android:text="Where is my IKEA order?!"
+        android:textAllCaps="false"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#0A83AA" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
